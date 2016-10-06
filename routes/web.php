@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $todos = App\Todo::All();
+    return view('welcome', ['todos' => $todos]);
 });
+
+Route::resource('todos', 'TodoController');
+
 
 Auth::routes();
 
