@@ -44,7 +44,7 @@ class TodoController extends Controller
             'due_date' => new \DateTime('now')
         ]);
         $todo->save();
-        //$todo->list
+
         return back();
     }
 
