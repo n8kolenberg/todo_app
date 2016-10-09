@@ -18,8 +18,8 @@ class CreateTodosTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->date('due_date');
-            $table->unsignedInteger('list_id');
-            $table->foreign('list_id')->references('id')->on('list')->onDelete('cascade');
+            $table->unsignedInteger('task_list_id');
+            $table->foreign('task_list_id')->references('id')->on('lists')->onDelete('cascade');
             $table->timestamps();
         });
     }

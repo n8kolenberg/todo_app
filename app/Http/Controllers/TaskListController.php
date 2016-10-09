@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\TaskList;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -37,6 +38,13 @@ class TaskListController extends Controller
     public function store(Request $request)
     {
         //
+        $taskList = new TaskList([
+            'name' => $request['taskListName'],
+            'user_id' => 1 //We need to make this dynamic as well
+        ]);
+
+        $taskList->save();
+        return back();
     }
 
     /**
@@ -48,6 +56,14 @@ class TaskListController extends Controller
     public function show($id)
     {
         //
+        $taskListsAll = TaskList::All();
+        $taskListSpecific = TaskList::find($id);
+        $todos = $taskListSpecific->todos()->get();
+//        dd($todos);
+        return view('welcome', [
+            'todos'=> $todos,
+            'taskList'=> $taskListsAll
+        ]);
     }
 
     /**

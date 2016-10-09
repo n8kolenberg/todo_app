@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Todo;
+use App\TaskList;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +17,14 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+            /* Grabs all the todos and taskLists to display
+            them in the welcome view */
+            $todos = Todo::All();
+            $taskList = TaskList::All();
+            return view('welcome', [
+                'todos' => $todos,
+                'taskList' => $taskList
+            ]);
     }
 
     /**
@@ -40,7 +48,7 @@ class TodoController extends Controller
         $todo = new Todo([
             'name' => $request['to-do'],
             'description' => $request['to-do-desc'],
-            'list_id' => 1,
+            'task_list_id' => 1, //We have to work on making this dynamic
             'due_date' => new \DateTime('now')
         ]);
         $todo->save();
@@ -91,5 +99,9 @@ class TodoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function taskInList() {
+        return view('list');
     }
 }

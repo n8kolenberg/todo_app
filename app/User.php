@@ -28,9 +28,12 @@ class User extends Authenticatable
     ];
 
 
-    public function taskList() {
+    public function task_lists() {
         return $this->hasMany('App\TaskList');
     }
 
 
+    public function todos() {
+        return $this->hasManyThrough('App\Todo', 'App\TaskList');
+    }
 }
