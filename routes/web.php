@@ -21,14 +21,23 @@
 
 */
 
-
+//Overview of all lists and tasks
 Route::get('/', 'TodoController@index');
+
+//Shows only the tasks related to a TaskList
 Route::get('/show-list/{id}', 'TaskListController@show');
 
+//The following two are used to store tasks and lists
 Route::resource('todos', 'TodoController');
 Route::resource('taskList', 'TaskListController');
 
-Route::get('/list', 'TodoController@taskInList');
+//For the todos per list
+Route::resource('/show-list/{id}/todos-per-list', 'TodoController@todoPerList');
+
+
+//Edit and Delete
+Route::resource('/todo-edit/{id}', 'TodoController@update');
+Route::resource('/todo-delete/{id}', 'TodoController@delete');
 
 Auth::routes();
 

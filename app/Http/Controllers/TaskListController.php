@@ -60,9 +60,9 @@ class TaskListController extends Controller
         $taskListSpecific = TaskList::find($id);
         $todos = $taskListSpecific->todos()->get();
 //        dd($todos);
-        return view('welcome', [
+        return view('list', [
             'todos'=> $todos,
-            'taskList'=> $taskListsAll
+            'taskList'=> $taskListSpecific
         ]);
     }
 

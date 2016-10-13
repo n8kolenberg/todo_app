@@ -37,16 +37,25 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Due date</th>
+                        <th>Edit</th>
                     </tr>
                     @foreach ($todos as $todo)
                         <tr>
                             <th>{{$todo->name}}</th>
                             <th>{{$todo->description}}</th>
                             <th>{{$todo->due_date}}</th>
+                            <th>
+                                <a href="/todo-edit/{{$todo->id}}">
+                                    <button class="btn btn-primary">Edit</button>
+                                </a>
+                                <a href="/todo-delete/{{$todo->id}}">
+                                    <button class="btn btn-danger">Delete</button>
+                                </a>
+
+                            </th>
                         </tr>
                     @endforeach
                 </table>
             </div>
         </div>
-    </div>
     @stop

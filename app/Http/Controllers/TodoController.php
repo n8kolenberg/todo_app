@@ -45,10 +45,11 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        /*This is how we store our task into the DB*/
         $todo = new Todo([
             'name' => $request['to-do'],
             'description' => $request['to-do-desc'],
-            'task_list_id' => 1, //We have to work on making this dynamic
+            'task_list_id' => 1, //By default, all notes will be stored in Inbox, which has id of 1
             'due_date' => new \DateTime('now')
         ]);
         $todo->save();
@@ -88,6 +89,7 @@ class TodoController extends Controller
     public function update(Request $request, $id)
     {
         //
+        echo 'Here comes the editing form';
     }
 
     /**
@@ -101,7 +103,23 @@ class TodoController extends Controller
         //
     }
 
-    public function taskInList() {
-        return view('list');
+
+    public function delete($id) {
+        echo 'This is where we delete the todo';
     }
+
+    public function todoPerList(Request $request, $id) {
+        $currentTaskList = TaskList::find($id);
+
+        $todo = new Todo();
+        $todo->name = $request['to-do'];
+        $todo->description = $request['to-do-desc'];
+        $todo->task_list_id = $id;
+        $todo->due_date = new \DateTime();
+
+        $currentTaskList->todos()->save($todo);
+        return back();
+    }
+
+
 }

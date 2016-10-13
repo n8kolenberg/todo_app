@@ -8,7 +8,7 @@ class Todo extends Model
 {
     protected $fillable = ['name', 'description', 'due_date', 'task_list_id', 'created_at', 'updated_at'];
 
-    public function task_lists() {
+    public function task_list() {
         return $this->belongsTo('App\TaskList');
     }
 
