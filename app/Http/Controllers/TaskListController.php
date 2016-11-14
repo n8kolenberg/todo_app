@@ -55,14 +55,9 @@ class TaskListController extends Controller
      */
     public function show($id)
     {
-        //
-        $taskListsAll = TaskList::All();
-        $taskListSpecific = TaskList::find($id);
-        $todos = $taskListSpecific->todos()->get();
-//        dd($todos);
         return view('list', [
-            'todos'=> $todos,
-            'taskList'=> $taskListSpecific
+            'activeId'=> $id,
+            'taskLists' => TaskList::with('todos')->get()->keyBy('id')
         ]);
     }
 

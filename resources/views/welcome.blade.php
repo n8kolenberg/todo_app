@@ -1,17 +1,16 @@
 @extends('layouts/layout')
 
-    @section('sidebar')
-        @include('layouts/sidebar')
-        @parent
-    @stop
+
+        @section('layouts/sidebar')
 
         @section('content')
+
         <!--Add Task Form-->
         <div class=" col-sm-7 col-md-8" id="addTaskForm">
             <form action="/todos" method="POST" class="form-horizontal" id="addTodo">
                 {{csrf_field()}}
                 <div class="form-group">
-                    <div class="col-md-5 col-lg-6 "><input class="form-control" type="text" name="to-do" placeholder="Add a new task"></div>
+                    <div class="col-md-5 col-lg-6"><input class="form-control" type="text" name="to-do" placeholder="Add a new task"></div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-5 col-lg-6">
@@ -26,18 +25,22 @@
             </form>
             <!--End form tag-->
         </div>
+        @if(Session::has('status'))
+            <div class="col-sm-8">
+                <p class="alert-success text-center">{{Session::get('status')}}</p>
+            </div>
+        @endif
 
 
         <!--Listing tasks-->
         <div class="col-sm-9 col-md-10 main">
             <div class="col-sm-9 col-sm-10 main text-center">
                 <table class="table table-hover">
-
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Due date</th>
-                        <th>Edit</th>
+                        <th>Update your tasks</th>
                     </tr>
                     @foreach ($todos as $todo)
                         <tr>
@@ -45,13 +48,12 @@
                             <th>{{$todo->description}}</th>
                             <th>{{$todo->due_date}}</th>
                             <th>
-                                <a href="/todo-edit/{{$todo->id}}">
+                                <a href="/todos/{{$todo->id}}/edit">
                                     <button class="btn btn-primary">Edit</button>
                                 </a>
-                                <a href="/todo-delete/{{$todo->id}}">
+                                <a href="/todos/{{$todo->id}}/delete">
                                     <button class="btn btn-danger">Delete</button>
                                 </a>
-
                             </th>
                         </tr>
                     @endforeach

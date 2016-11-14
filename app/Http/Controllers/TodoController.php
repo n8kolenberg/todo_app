@@ -16,14 +16,13 @@ class TodoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-            /* Grabs all the todos and taskLists to display
+    {       /* Grabs all the todos and taskLists to display
             them in the welcome view */
-            $todos = Todo::All();
-            $taskList = TaskList::All();
+            $todos = Todo::All()->reverse();
+            $taskLists = TaskList::All();
             return view('welcome', [
                 'todos' => $todos,
-                'taskList' => $taskList
+                'taskLists' => $taskLists
             ]);
     }
 
@@ -77,6 +76,17 @@ class TodoController extends Controller
     public function edit($id)
     {
         //
+        echo "
+        <form action='/' method='PUT' class='form-horizontal'>
+            <div class='form-group'>
+                <input type='text' value='Update the task'>
+            </div>
+            <div class='form-group'>
+                <input type='submit'>
+            </div>
+        </form>
+        
+        ";
     }
 
     /**
@@ -89,7 +99,6 @@ class TodoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        echo 'Here comes the editing form';
     }
 
     /**
@@ -98,16 +107,15 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        Todo::destroy($id);
+        $request->session()->flash('status', 'Task Deleted');
+        return back();
     }
 
 
-    public function delete($id) {
-        echo 'This is where we delete the todo';
-    }
-
+    //Allows user to add todos to a specific TodoList
     public function todoPerList(Request $request, $id) {
         $currentTaskList = TaskList::find($id);
 

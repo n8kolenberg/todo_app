@@ -3,7 +3,7 @@
     <div class="col-sm-3 col-md-2 sidebar full-height">
         <h2><a href="/">All Lists</h2> </a>
         <ul class="nav nav-sidebar">
-            @foreach($taskList as $taskList)
+            @foreach($taskLists as $taskList)
                 <h4> <a href="/show-list/{{$taskList->id}}"> {{$taskList->name}} </a> </h4>
             @endforeach
         </ul>
