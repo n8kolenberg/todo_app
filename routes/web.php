@@ -12,8 +12,9 @@
 */
 
 /* TODO
-# The todo lists should be reversed for the individual lists
-# Create an Edit form for the user to edit the todos
+# The todo lists should be reversed for the individual lists - DONE
+# Refactor the buttons so they are forms and you can use the resource route controller - DONE
+# Create an Edit form for the user to edit the todos - DONE
 # The Delete action in the list should show the flash message as well
 # On the main 'All Lists' page, all the todos are assigned to Groceries by default - maybe make this an inbox.
 # For future - user should be able to reassign the todos to different lists
@@ -34,8 +35,12 @@ Route::resource('taskList', 'TaskListController');
 Route::resource('/show-list/{id}/todos-per-list', 'TodoController@todoPerList');
 
 
-//Edit and Delete the todos
+/*****Edit and Delete the todos****/
+//Showing the Edit form
 Route::resource('/todos/{id}/edit', 'TodoController');
+//Actually updating the todo
+Route::patch('todos/{id}');
+
 //Value of hidden input needs to be DELETE
 Route::resource('/todos/{id}/delete', 'TodoController@destroy');
 

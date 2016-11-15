@@ -75,18 +75,12 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-        //
-        echo "
-        <form action='/' method='PUT' class='form-horizontal'>
-            <div class='form-group'>
-                <input type='text' value='Update the task'>
-            </div>
-            <div class='form-group'>
-                <input type='submit'>
-            </div>
-        </form>
-        
-        ";
+        $todoToEdit = Todo::find($id);
+        $taskLists = TaskList::All();
+       return view('layouts/editTodo', [
+            'todoToEdit' => $todoToEdit,
+           'taskLists' => $taskLists
+       ]);
     }
 
     /**
@@ -98,7 +92,16 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $todoToUpdate = Todo::find($id);
+        $todoToUpdate->name = $request['to-do-name'];
+        $todoToUpdate->description = $request['to-do-desc'];
+        $todoToUpdate->save();
+
+        $request->session()->flash('status', 'Task Updated');
+        return view('welcome', [
+            'todos'=>Todo::all(),
+            'taskLists' => TaskList::with('todos')->get()
+        ]);
     }
 
     /**

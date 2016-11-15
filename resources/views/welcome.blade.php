@@ -1,8 +1,5 @@
 @extends('layouts/layout')
 
-
-        @section('layouts/sidebar')
-
         @section('content')
 
         <!--Add Task Form-->
@@ -48,12 +45,16 @@
                             <th>{{$todo->description}}</th>
                             <th>{{$todo->due_date}}</th>
                             <th>
-                                <a href="/todos/{{$todo->id}}/edit">
-                                    <button class="btn btn-primary">Edit</button>
-                                </a>
-                                <a href="/todos/{{$todo->id}}/delete">
-                                    <button class="btn btn-danger">Delete</button>
-                                </a>
+                                <form action="/todos/{{$todo->id}}/edit" method="GET">
+                                    <div class="col-xs-5">
+                                        <button type="submit" class="btn btn-primary">Edit</button>
+                                    </div>
+                                </form>
+                                <form action="/todos/{{$todo->id}}/delete" method="DELETE">
+                                    <div class="col-xs-5">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </div>
+                                </form>
                             </th>
                         </tr>
                     @endforeach
